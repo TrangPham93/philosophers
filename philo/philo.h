@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/17 17:19:32 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/20 13:53:25 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,24 @@ typedef struct s_philo
 	long	time_to_sleep;
 }	t_philo;
 
-int	process_input(char **input);
-int	validate_input(char **input);
+typedef	struct s_table
+{
+	pthread_t	philo_table[200];
+	int			size;
+	
+}	t_table;
+
+
+int		process_input(char **input);
+int		validate_input(char **input, t_table **s_table);
+void	init_game(int	size);
+
 
 /* Helper function */
 void	print_error(char *s);
+void	init_table(t_table **table);
+void	init_philo(t_philo *philo);
+
+void	*routin(void);
 
 # endif
