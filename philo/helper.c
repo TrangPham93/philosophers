@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:54:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 16:43:57 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 17:30:49 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,37 +49,29 @@ int	array_size(char **arr)
 	return (i);
 }
 
-int	init_philo(t_table **table)
+int	ft_usleep(long long milliseconds)
 {
-	int	i;
+	long long	start;
 	
-	i = 0;
-	while (i < (*table)->size)
+	start = get_current_time();
+	if (start == FALSE)
+		return (FALSE);
+	while (get_current_time() - start < milliseconds)
 	{
-		(*table)->philo_table[i].id = i + 1;
-		(*table)->philo_table[i].time_to_die = (*table)->time_to_die;
-		(*table)->philo_table[i].time_to_eat = (*table)->time_to_eat;
-		(*table)->philo_table[i].time_to_sleep = (*table)->time_to_sleep;
-		(*table)->philo_table[i].meal_no = (*table)->meal_no;
-		if (pthread_create(&(*table)->philo_table[i].thr, NULL,
-			&thinking_routine, (void *)&(*table)->philo_table[i]) != TRUE)
-		{
-			print_error("Failed to create thread");
-			return (FALSE);
-		}
-		i++;
+		usleep(500); // suspend execution for 500 microseconds
 	}
 	return (TRUE);
 }
 
-void	init_table(t_table **table)
+long long get_current_time(void)
 {
-	(*table)->size = 0;
-	(*table)->time_to_die = 0;
-	(*table)->time_to_eat = 0;
-	(*table)->time_to_sleep = 0;
-	(*table)->meal_no = 0;
-	memset((*table)->philo_table, 0, sizeof((*table)->philo_table));
+	struct timeval	time;
+	
+	if (gettimeofday(&time, NULL) != TRUE)
+	{
+		print_error("Gettimeofday failed");
+		return (FALSE);
+	}
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
-
 
