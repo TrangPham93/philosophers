@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 17:04:37 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 17:58:37 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	init_philo(t_table **table)
 		(*table)->philo_table[i].time_to_eat = (*table)->time_to_eat;
 		(*table)->philo_table[i].time_to_sleep = (*table)->time_to_sleep;
 		(*table)->philo_table[i].meal_no = (*table)->meal_no;
+		// if (pthread_create(&(*table)->philo_table[i].thr, NULL,
+		// 	&thinking_routine, (void *)&(*table)->philo_table[i]) != TRUE)
+		// {
+		// 	print_error("Failed to create thread");
+		// 	return (FALSE);
+		// }
 		if (pthread_create(&(*table)->philo_table[i].thr, NULL,
 			&thinking_routine, (void *)&(*table)->philo_table[i]) != TRUE)
 		{

@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 16:32:30 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 17:32:43 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 17:59:58 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void	*eating_routine(void *arg)
 	t_philo	*philo;
 	
 	philo = (t_philo *)arg;
+	
 	ft_usleep(philo->time_to_eat);
 	printf("%d is eating \n", philo->id);
 }
+
+// void	*routine_exe(void *arg)
+// {
+	
+// }

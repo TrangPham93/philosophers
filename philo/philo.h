@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 17:24:40 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 17:57:20 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ typedef struct s_philo
 	int			meal_no;
 	long long	last_meal_time;
 	int			dead_flag;
+	int			meal_eaten;
+	pthread_mutex_t *l_fork;
+	pthread_mutex_t *r_fork;
 	pthread_mutex_t *eat_lock;
 }	t_philo;
 
@@ -65,6 +68,7 @@ int		init_philo(t_table **table);
 /* Routine */
 void	*thinking_routine(void *arg);
 void	*sleeping_routine(void *arg);
+void	*eating_routine(void *arg);
 // Suspend execution for millisecond intervals
 int		ft_usleep(long long milliseconds);
 // Convert second and microsecond to milliseconds.
