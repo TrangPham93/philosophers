@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:42:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 16:58:01 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 17:51:41 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	main(int ac, char *av[])
 	if (process_input(av, &table) == FALSE)
 		return (EXIT_FAILURE);
 	printf("input validated \n"); //db
+
+	pthread_mutex_init(&table->eat_lock, NULL); //init lock
 	if (init_philo(&table) == FALSE)
 		return (EXIT_FAILURE);
 	i = 0;
@@ -42,9 +44,9 @@ int	main(int ac, char *av[])
 		}
 	}
 
-		// pthread_mutex_init(&mutex, NULL);
-	// init_game(table);
-	// pthread_mutex_destroy(&mutex);
+	
+
+	pthread_mutex_destroy(&table->eat_lock); //destroy lock
 	
 	return (EXIT_SUCCESS);
 }
