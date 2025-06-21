@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 16:37:51 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 17:24:40 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
+# include <unistd.h> // usleep
 # include <limits.h>
 # include <pthread.h> //for thread
 # include <string.h> // for memset
+# include <sys/time.h> //gettimeofday
 
 # define TRUE 0
 # define FALSE -1
@@ -63,6 +64,12 @@ int		init_philo(t_table **table);
 
 /* Routine */
 void	*thinking_routine(void *arg);
+void	*sleeping_routine(void *arg);
+// Suspend execution for millisecond intervals
+int		ft_usleep(long long milliseconds);
+// Convert second and microsecond to milliseconds.
+long long get_current_time(void);
+
 
 /* Helper function */
 // char	*ft_strchr(const char *s, int c);
