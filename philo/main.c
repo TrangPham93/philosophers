@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:42:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/20 14:03:24 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/20 14:06:44 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ int	main(int ac, char *av[])
 	t_table	*table;
 	pthread_mutex_t	mutex;
 	
+	(void)av;
+	table = NULL;
 	if (ac < 5)
 	{
 		print_error("Invalid input");
 		return (EXIT_FAILURE);
 	}
+	table->size = 5;
 	init_table(&table);
-	process_input(av, &table);
+	// process_input(av, &table);
 	
 	pthread_mutex_init(&mutex, NULL);
 	init_game(table);
@@ -32,21 +35,21 @@ int	main(int ac, char *av[])
 	return (EXIT_SUCCESS);
 }
 
-int	process_input(char **input, t_table **table)
-{
+// int	process_input(char **input, t_table **table)
+// {
 	
-	validate_input(input, table);
+// 	validate_input(input, table);
 	
 	
-	return (TRUE);
-}
-int	validate_input(char **input, t_table **table)
-{
-	(void)*input;
+// 	return (TRUE);
+// }
+// int	validate_input(char **input, t_table **table)
+// {
+// 	(void)*input;
 
 	
-	return (TRUE);
-}
+// 	return (TRUE);
+// }
 
 void	init_game(t_table *table)
 {
@@ -79,7 +82,7 @@ void	*routin(pthread_mutex_t *mutex)
 	pthread_mutex_lock(mutex);
 	
 	sum +=1;
-	printf("sum : \n", sum);
+	printf("sum : %d\n", sum);
 
 	pthread_mutex_unlock(mutex);
 }
