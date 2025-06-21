@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:28:11 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 15:33:50 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 16:00:37 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_input_value(long long *long_arr, t_table **table)
 		(*table)->meal_no = long_arr[4];
 	return (TRUE);
 }
-philo_no
+
 
 long long	*create_long_arr(char **input, int count)
 {

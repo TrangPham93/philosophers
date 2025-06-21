@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 15:33:32 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 16:37:51 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 typedef struct s_philo
 {
+	pthread_t	thr;
 	int			id;
 	long long	time_to_die;
 	long long	time_to_eat;
@@ -57,11 +58,11 @@ char		*join_input(char **av);
 /* Initialize table */
 // void	init_game(t_table *table);
 void	init_table(t_table **table);
-void	init_philo(t_philo *philo);
+int		init_philo(t_table **table);
 // void	*routin(void *);
 
-
-
+/* Routine */
+void	*thinking_routine(void *arg);
 
 /* Helper function */
 // char	*ft_strchr(const char *s, int c);
