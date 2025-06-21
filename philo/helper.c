@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:54:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 15:41:02 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 16:43:57 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_error(char *s)
 {
-	printf("Error :");
+	printf("Error: ");
 	if (!s)
 		printf("Unknown\n");
 	printf("%s\n", s);
@@ -49,11 +49,27 @@ int	array_size(char **arr)
 	return (i);
 }
 
-void	init_philo(t_philo *philo)
+int	init_philo(t_table **table)
 {
-	memset(philo, 0, sizeof(t_philo));
+	int	i;
 	
-	
+	i = 0;
+	while (i < (*table)->size)
+	{
+		(*table)->philo_table[i].id = i + 1;
+		(*table)->philo_table[i].time_to_die = (*table)->time_to_die;
+		(*table)->philo_table[i].time_to_eat = (*table)->time_to_eat;
+		(*table)->philo_table[i].time_to_sleep = (*table)->time_to_sleep;
+		(*table)->philo_table[i].meal_no = (*table)->meal_no;
+		if (pthread_create(&(*table)->philo_table[i].thr, NULL,
+			&thinking_routine, (void *)&(*table)->philo_table[i]) != TRUE)
+		{
+			print_error("Failed to create thread");
+			return (FALSE);
+		}
+		i++;
+	}
+	return (TRUE);
 }
 
 void	init_table(t_table **table)
@@ -63,7 +79,7 @@ void	init_table(t_table **table)
 	(*table)->time_to_eat = 0;
 	(*table)->time_to_sleep = 0;
 	(*table)->meal_no = 0;
-	memset((*table)->philo_table, 0, sizeof(t_table));
+	memset((*table)->philo_table, 0, sizeof((*table)->philo_table));
 }
 
 

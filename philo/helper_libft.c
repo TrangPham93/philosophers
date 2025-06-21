@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 12:51:19 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 15:15:42 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 16:13:25 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,10 @@ int	is_only_digit(char *s)
 	while (s[i])
 	{
 		if (!ft_isdigit(s[i]))
+		{
+			print_error("Non digit input");
 			return (FALSE);
+		}
 		i++;	
 	}
 	return (TRUE);

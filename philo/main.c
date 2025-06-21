@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:42:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 15:41:27 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/21 16:32:46 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int ac, char *av[])
 {
 	t_table	*table;
+	int i;
 	// pthread_mutex_t	mutex;
 	
 	if (ac == 1)
@@ -29,18 +30,19 @@ int	main(int ac, char *av[])
 	if (process_input(av, &table) == FALSE)
 		return (EXIT_FAILURE);
 	printf("input validated \n"); //db
-	int	i = 0;
+	if (init_philo(&table) == FALSE)
+		return (EXIT_FAILURE);
+	i = 0;
 	while (i < table->size)
 	{
-		table->philo_table[i].id = i;
-		table->philo_table->time_to_die = table->time_to_die;
-		table->philo_table->time_to_eat = table->time_to_eat;
-		table->philo_table->time_to_sleep = table->time_to_sleep;
-		table->philo_table->meal_no = table->meal_no;
-		
+		if (pthread_join(table->philo_table[i++].thr, NULL) != TRUE)
+		{
+			print_error("Failed to join thread");
+			return (EXIT_FAILURE);
+		}
 	}
-	
-	// pthread_mutex_init(&mutex, NULL);
+
+		// pthread_mutex_init(&mutex, NULL);
 	// init_game(table);
 	// pthread_mutex_destroy(&mutex);
 	
@@ -60,44 +62,3 @@ int	process_input(char **av, t_table **table)
 		return (FALSE);
 	return (TRUE);
 }
-
-
-// void	init_game(t_table *table)
-// {
-// 	pthread_t	th[200];
-// 	int			i;
-	
-
-// 	i = 0;
-// 	while (i < table->size)
-// 	{
-// 		if (pthread_create(&th[i++], NULL, &routin, NULL) != TRUE) //return 0 if success
-// 		{
-// 			print_error("Failed to create thread");
-// 			return ;
-// 		}
-// 	}
-// 	i = 0;
-// 	while (i < table->size)
-// 	{
-// 		if (pthread_join(th[i++], NULL) != TRUE)
-// 			return ;
-// 	}
-// }
-
-// void	*routin(void *)
-// {
-// 	int	sum;
-
-// 	sum = 0;
-// 	for (int i = 0; i < 10000; i++)
-// 	{
-// 		pthread_mutex_lock(&mutex);
-		
-// 		sum++;
-		
-// 		pthread_mutex_unlock(&mutex);
-		
-// 	}
-// 	printf("sum : %d\n", sum);
-// }

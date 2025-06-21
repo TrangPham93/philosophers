@@ -6,7 +6,7 @@
 #    By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 15:39:22 by trpham            #+#    #+#              #
-#    Updated: 2025/06/21 15:08:35 by trpham           ###   ########.fr        #
+#    Updated: 2025/06/21 16:33:04 by trpham           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS = main.c \
 		helper_split.c \
 		helper_libft.c \
 		helper.c \
+		routine.c \
 		to_delete.c
 		
 OBJS = $(SRCS:%.c=%.o)
