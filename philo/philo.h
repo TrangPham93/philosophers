@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 17:57:20 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/23 14:06:09 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef	struct s_table
 	long long	time_to_sleep;
 	int			meal_no;	
 	t_philo		philo_table[200]; // need to add null and monitor?
+	pthread_mutex_t	forks[200];
 	pthread_mutex_t	eat_lock;
 }	t_table;
 
@@ -60,23 +61,26 @@ char		**split_input(char **av);
 char		*join_input(char **av);
 
 /* Initialize table */
-// void	init_game(t_table *table);
 void	init_table(t_table **table);
 int		init_philo(t_table **table);
-// void	*routin(void *);
+int		start_dinner(t_table **table);
 
 /* Routine */
-void	*thinking_routine(void *arg);
-void	*sleeping_routine(void *arg);
-void	*eating_routine(void *arg);
+void	*philo_routine(void *arg);
+void	thinking_routine(t_philo *philo);
+void	sleeping_routine(t_philo *philo);
+void	eating_routine(t_philo *philo);
+void	die(t_philo *philo);
+void	pick_fork(t_philo *philo);
+
 // Suspend execution for millisecond intervals
 int		ft_usleep(long long milliseconds);
+
 // Convert second and microsecond to milliseconds.
 long long get_current_time(void);
 
 
 /* Helper function */
-// char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 char	**ft_split(char const *s, char c);
@@ -87,7 +91,7 @@ int		is_only_digit(char *s);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-
+int 	is_even_id(int	id);
 
 
 void	print_error(char *s);

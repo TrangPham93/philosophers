@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 17:58:37 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/23 14:20:58 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,30 @@
 int	init_philo(t_table **table)
 {
 	int	i;
+	t_philo	*philo;
 	
 	i = 0;
 	while (i < (*table)->size)
 	{
-		(*table)->philo_table[i].id = i + 1;
-		(*table)->philo_table[i].time_to_die = (*table)->time_to_die;
-		(*table)->philo_table[i].time_to_eat = (*table)->time_to_eat;
-		(*table)->philo_table[i].time_to_sleep = (*table)->time_to_sleep;
-		(*table)->philo_table[i].meal_no = (*table)->meal_no;
-		// if (pthread_create(&(*table)->philo_table[i].thr, NULL,
-		// 	&thinking_routine, (void *)&(*table)->philo_table[i]) != TRUE)
-		// {
-		// 	print_error("Failed to create thread");
+		philo = &((*table)->philo_table[i]);
+		philo->id = i + 1;
+		philo->time_to_die = (*table)->time_to_die;
+		philo->time_to_eat = (*table)->time_to_eat;
+		philo->time_to_sleep = (*table)->time_to_sleep;
+		philo->meal_no = (*table)->meal_no;
+		philo->last_meal_time = get_current_time();
+		philo->dead_flag = FALSE;
+		philo->l_fork = &(*table)->forks[i];
+		if (philo->id == (*table)->size)
+			philo->r_fork = &(*table)->forks[0];
+		else
+			philo->r_fork = &(*table)->forks[i + 1];
+		// philo.r_fork = malloc(sizeof(pthread_mutex_t));
+		// philo.l_fork = malloc(sizeof(pthread_mutex_t));
+		// if (!philo.r_fork || !philo.l_fork)
 		// 	return (FALSE);
-		// }
-		if (pthread_create(&(*table)->philo_table[i].thr, NULL,
-			&thinking_routine, (void *)&(*table)->philo_table[i]) != TRUE)
-		{
-			print_error("Failed to create thread");
-			return (FALSE);
-		}
+		// pthread_mutex_init(philo.l_fork, NULL);
+		// pthread_mutex_init(philo.r_fork, NULL);
 		i++;
 	}
 	return (TRUE);
@@ -49,4 +52,5 @@ void	init_table(t_table **table)
 	(*table)->time_to_sleep = 0;
 	(*table)->meal_no = 0;
 	memset((*table)->philo_table, 0, sizeof((*table)->philo_table));
+	memset((*table)->forks, 0, sizeof((*table)->forks));
 }

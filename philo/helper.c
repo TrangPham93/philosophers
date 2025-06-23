@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:54:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 17:30:49 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/23 14:15:53 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,9 @@ long long get_current_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
+int is_even_id(int	id)
+{
+	if (id % 2 == 0)
+		return (TRUE);
+	return (FALSE);
+}

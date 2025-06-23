@@ -6,26 +6,11 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 12:51:19 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 16:13:25 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/23 11:02:18 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-char	*ft_strchr(const char *s, int c)
-{
-	if (!s)
-		return (NULL);
-	while (*s)
-	{
-		if ((unsigned char)*s == (unsigned char)c)
-			return ((char *)s);
-		s++;
-	}
-	if (c == '\0')
-		return ((char *)s);
-	return (NULL);
-}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
