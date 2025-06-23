@@ -6,20 +6,22 @@
 #    By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 15:39:22 by trpham            #+#    #+#              #
-#    Updated: 2025/06/21 17:04:48 by trpham           ###   ########.fr        #
+#    Updated: 2025/06/23 17:50:05 by trpham           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
 
 SRCS = main.c \
 		validate_input.c \
 		helper_split.c \
 		helper_libft.c \
 		helper.c \
+		helper2.c \
 		routine.c \
 		init.c \
+		monitor.c \
 		to_delete.c
 		
 OBJS = $(SRCS:%.c=%.o)

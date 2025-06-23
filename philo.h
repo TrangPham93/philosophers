@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/23 14:06:09 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/23 17:36:26 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,18 @@ typedef struct s_philo
 {
 	pthread_t	thr;
 	int			id;
+	long long	start_time;
 	long long	time_to_die;
 	long long	time_to_eat;
 	long long	time_to_sleep;
-	int			meal_no;
 	long long	last_meal_time;
+	int			meal_no;
 	int			dead_flag;
 	int			meal_eaten;
-	pthread_mutex_t *l_fork;
+	
+	pthread_mutex_t *l_fork; //recurssive?
 	pthread_mutex_t *r_fork;
+	pthread_mutex_t	*write_lock;
 	pthread_mutex_t *eat_lock;
 }	t_philo;
 
@@ -46,16 +49,18 @@ typedef	struct s_table
 	long long	time_to_die;
 	long long	time_to_eat;
 	long long	time_to_sleep;
-	int			meal_no;	
+	int			meal_no;
+	long long	start_time;
 	t_philo		philo_table[200]; // need to add null and monitor?
 	pthread_mutex_t	forks[200];
+	pthread_mutex_t	write_lock;
 	pthread_mutex_t	eat_lock;
 }	t_table;
 
 /* Process input */
 int			process_input(char **input, t_table **table);
 int			validate_input(char **input_arr, t_table **table);
-int			check_input_value(long long *long_arr, t_table **table);
+int	check_input_value(long long *long_arr, t_table **table, int count);
 long long	*create_long_arr(char **input, int count);
 char		**split_input(char **av);
 char		*join_input(char **av);
@@ -71,12 +76,13 @@ void	thinking_routine(t_philo *philo);
 void	sleeping_routine(t_philo *philo);
 void	eating_routine(t_philo *philo);
 void	die(t_philo *philo);
-void	pick_fork(t_philo *philo);
+void	*monitor(void *arg);
+// void	pick_fork(t_philo *philo);
 
 // Suspend execution for millisecond intervals
 int		ft_usleep(long long milliseconds);
 
-// Convert second and microsecond to milliseconds.
+// Get current time (second and microsecond) in milliseconds.
 long long get_current_time(void);
 
 
@@ -92,10 +98,12 @@ size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int 	is_even_id(int	id);
-
-
 void	print_error(char *s);
+void	lock_and_printf(t_philo *philo, char *msg);
+
+/* Free memory */
 void	free_array_null(char ***array);
+void	destroy(t_table **table);
 
 
 /* to delete before submission */
