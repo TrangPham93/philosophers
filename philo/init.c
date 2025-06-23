@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/23 14:20:58 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/23 17:46:27 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	init_philo(t_table **table)
 	{
 		philo = &((*table)->philo_table[i]);
 		philo->id = i + 1;
+		philo->start_time = (*table)->start_time;
 		philo->time_to_die = (*table)->time_to_die;
 		philo->time_to_eat = (*table)->time_to_eat;
 		philo->time_to_sleep = (*table)->time_to_sleep;
@@ -37,8 +38,9 @@ int	init_philo(t_table **table)
 		// philo.l_fork = malloc(sizeof(pthread_mutex_t));
 		// if (!philo.r_fork || !philo.l_fork)
 		// 	return (FALSE);
-		// pthread_mutex_init(philo.l_fork, NULL);
-		// pthread_mutex_init(philo.r_fork, NULL);
+		pthread_mutex_init(philo->l_fork, NULL);
+		// pthread_mutex_init(philo->r_fork, NULL);
+		philo->write_lock = &(*table)->write_lock;
 		i++;
 	}
 	return (TRUE);
@@ -51,6 +53,10 @@ void	init_table(t_table **table)
 	(*table)->time_to_eat = 0;
 	(*table)->time_to_sleep = 0;
 	(*table)->meal_no = 0;
+	(*table)->start_time = get_current_time();
 	memset((*table)->philo_table, 0, sizeof((*table)->philo_table));
 	memset((*table)->forks, 0, sizeof((*table)->forks));
+	pthread_mutex_init(&(*table)->write_lock, NULL);
+	
+	
 }

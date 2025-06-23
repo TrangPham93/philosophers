@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:28:11 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 16:00:37 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/23 16:15:10 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ int	validate_input(char **input_arr, t_table **table)
 		i++;
 	}
 	count = array_size(input_arr);
-	long_arr = (long long *)create_long_arr(input_arr, count);
+	long_arr = create_long_arr(input_arr, count);
 	if (!long_arr)
 	{
 		free_array_null(&input_arr);
 		return (FALSE);
 	}
 	
-	if (check_input_value(long_arr, table) == FALSE)
+	if (check_input_value(long_arr, table, count) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }
 
-int	check_input_value(long long *long_arr, t_table **table)
+int	check_input_value(long long *long_arr, t_table **table, int count)
 {
 	if (long_arr[0] <= 0 || long_arr[0] > 200)
 	{
@@ -50,8 +50,12 @@ int	check_input_value(long long *long_arr, t_table **table)
 		return (FALSE);
 	}
 	(*table)->size = long_arr[0];
-	if (long_arr[1] <= 0 || long_arr[2] <= 0 || long_arr[3] <= 0
-		|| (long_arr[4] && long_arr[4] < 0))
+	if (long_arr[1] <= 0 || long_arr[2] <= 0 || long_arr[3] <= 0)
+	{
+		print_error("Invalid input value");
+		return (FALSE);
+	}
+	if (count == 5 && long_arr[4] && long_arr[4] < 0)
 	{
 		print_error("Invalid input value");
 		return (FALSE);
@@ -59,7 +63,7 @@ int	check_input_value(long long *long_arr, t_table **table)
 	(*table)->time_to_die = long_arr[1];
 	(*table)->time_to_eat = long_arr[2];
 	(*table)->time_to_sleep = long_arr[3];
-	if (long_arr[4])
+	if (count == 5 && long_arr[4])
 		(*table)->meal_no = long_arr[4];
 	return (TRUE);
 }
@@ -68,7 +72,7 @@ int	check_input_value(long long *long_arr, t_table **table)
 long long	*create_long_arr(char **input, int count)
 {
 	long long	num;
-	long long	*long_arr;
+	long long	*long_arr = NULL;
 	int			i;
 
 	i = 0;
@@ -115,8 +119,8 @@ char	*join_input(char **av)
 
 char	**split_input(char **av)
 {
-	char	**input_arr;
-	char	*input_str;
+	char	**input_arr = NULL;
+	char	*input_str = NULL;
 	int		count;
 
 	input_str = join_input(av);
@@ -134,6 +138,7 @@ char	**split_input(char **av)
 	if (count != 4 && count != 5)
 	{
 		print_error("Invalid input");
+		free(input_str);
 		free_array_null(&input_arr);
 		return (NULL);
 	}

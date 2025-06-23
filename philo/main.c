@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:42:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/23 14:21:36 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/23 16:35:18 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,28 @@ int	main(int ac, char *av[])
 		return (EXIT_FAILURE);
 	init_table(&table);
 	if (process_input(av, &table) == FALSE)
+	{
+		free(table);
 		return (EXIT_FAILURE);
+	}
 	// printf("input validated \n"); //db
 	if (init_philo(&table) == FALSE) // recheck the return type of this func
+	{
+		free(table);
 		return (EXIT_FAILURE);
+	}
 	if (start_dinner(&table) == FALSE)
+	{
+		free(table);
 		return (EXIT_FAILURE);
+	}
+	destroy(&table);
 	return (EXIT_SUCCESS);
 }
 
 int	process_input(char **av, t_table **table)
 {
-	char	**input_arr;
+	char	**input_arr = NULL;
 	
 	input_arr = split_input(av);
 	if (!input_arr)
@@ -75,3 +85,4 @@ int	start_dinner(t_table **table)
 	}
 	return (TRUE);
 }
+
