@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 18:58:25 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 20:13:21 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef	struct s_table
 	long long	time_to_sleep;
 	int			meal_no;
 	int			dead_flag;
+	int			all_philos_eat;
 	t_philo		philo_table[PHILOMAX]; // need to add null and monitor?
 	pthread_mutex_t	forks[PHILOMAX];
 	pthread_mutex_t	write_lock; //for the whole table
@@ -73,15 +74,18 @@ void	init_table(t_table *table);
 void	init_philo(t_table *table);
 void	init_forks(t_table *table);
 int		start_dinner(t_table *table);
-void	one_philo(t_table *table);
 
 /* Routine */
 void	*philo_routine(void *arg);
 void	thinking_routine(t_philo *philo);
 void	sleeping_routine(t_philo *philo);
 void	eating_routine(t_philo *philo);
-void	*monitor_routine(void *arg);
 int		get_dead_flag(t_philo *philo);
+
+/* Monitor */
+void	*monitor_routine(void *arg);
+int		one_philo_die(t_table *table);
+int		all_philos_eat(t_table *table);
 
 // Suspend execution for millisecond intervals
 int		ft_usleep(long long milliseconds, t_philo *philo);
@@ -113,5 +117,6 @@ void	destroy(t_table *table);
 
 /* to delete before submission */
 void	print_array(char **arr);
+void lock_and_print_msg(t_philo *philo, const char *format, int val);
 
 # endif

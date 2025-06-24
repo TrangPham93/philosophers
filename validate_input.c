@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:28:11 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 16:22:50 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 19:51:23 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_input_value(long long *long_arr, t_table *table, int count)
 	table->time_to_die = long_arr[1];
 	table->time_to_eat = long_arr[2];
 	table->time_to_sleep = long_arr[3];
-	if (count == 5 && long_arr[4])
+	if (count == 5)
 		table->meal_no = long_arr[4];
 	return (TRUE);
 }
