@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/23 17:36:26 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 17:21:33 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 # define TRUE 0
 # define FALSE -1
+# define PHILOMAX 300
 
 typedef struct s_philo
 {
@@ -34,53 +35,55 @@ typedef struct s_philo
 	long long	time_to_sleep;
 	long long	last_meal_time;
 	int			meal_no;
-	int			dead_flag;
+	int			*dead_flag;
 	int			meal_eaten;
-	
 	pthread_mutex_t *l_fork; //recurssive?
 	pthread_mutex_t *r_fork;
 	pthread_mutex_t	*write_lock;
-	pthread_mutex_t *eat_lock;
+	pthread_mutex_t	*dead_lock;
+	pthread_mutex_t meal_lock; //for each philo
 }	t_philo;
 
 typedef	struct s_table
 {
-	int			size;
+	int			no_philo;
 	long long	time_to_die;
 	long long	time_to_eat;
 	long long	time_to_sleep;
 	int			meal_no;
-	long long	start_time;
-	t_philo		philo_table[200]; // need to add null and monitor?
-	pthread_mutex_t	forks[200];
-	pthread_mutex_t	write_lock;
-	pthread_mutex_t	eat_lock;
+	int			dead_flag;
+	t_philo		philo_table[PHILOMAX]; // need to add null and monitor?
+	pthread_mutex_t	forks[PHILOMAX];
+	pthread_mutex_t	write_lock; //for the whole table
+	pthread_mutex_t	dead_lock; //for the whole table
+	// pthread_mutex_t	eat_lock;
 }	t_table;
 
 /* Process input */
-int			process_input(char **input, t_table **table);
-int			validate_input(char **input_arr, t_table **table);
-int	check_input_value(long long *long_arr, t_table **table, int count);
+int			process_input(char **input, t_table *table);
+int			validate_input(char **input_arr, t_table *table);
+int			check_input_value(long long *long_arr, t_table *table, int count);
 long long	*create_long_arr(char **input, int count);
 char		**split_input(char **av);
 char		*join_input(char **av);
 
 /* Initialize table */
-void	init_table(t_table **table);
-int		init_philo(t_table **table);
-int		start_dinner(t_table **table);
+void	init_table(t_table *table);
+void	init_philo(t_table *table);
+void	init_forks(t_table *table);
+int		start_dinner(t_table *table);
+void	one_philo(t_table *table);
 
 /* Routine */
 void	*philo_routine(void *arg);
 void	thinking_routine(t_philo *philo);
 void	sleeping_routine(t_philo *philo);
 void	eating_routine(t_philo *philo);
-void	die(t_philo *philo);
-void	*monitor(void *arg);
-// void	pick_fork(t_philo *philo);
+void	*monitor_routine(void *arg);
+int	get_dead_flag(t_philo *philo);
 
 // Suspend execution for millisecond intervals
-int		ft_usleep(long long milliseconds);
+int		ft_usleep(long long milliseconds, t_philo *philo);
 
 // Get current time (second and microsecond) in milliseconds.
 long long get_current_time(void);
@@ -103,7 +106,7 @@ void	lock_and_printf(t_philo *philo, char *msg);
 
 /* Free memory */
 void	free_array_null(char ***array);
-void	destroy(t_table **table);
+void	destroy(t_table *table);
 
 
 /* to delete before submission */

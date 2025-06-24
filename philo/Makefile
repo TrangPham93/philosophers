@@ -6,12 +6,13 @@
 #    By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/17 15:39:22 by trpham            #+#    #+#              #
-#    Updated: 2025/06/23 17:50:05 by trpham           ###   ########.fr        #
+#    Updated: 2025/06/24 11:27:37 by trpham           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror 
+# -fsanitize=thread -g
 
 SRCS = main.c \
 		validate_input.c \
