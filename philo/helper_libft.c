@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 12:51:19 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/23 11:02:18 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 21:11:34 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ int	ft_atoi(const char *nptr)
 	}
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
+		if (result > (INT_MAX - (nptr[i] - '0')) / 10 && sign == 1)
+			return (-1);
+		else if (result > (INT_MAX - (nptr[i] - '0')) / 10 && sign == -1)
+			return (-1); //should consider return -1 also for meal_no < 0
 		result = result * 10 + (nptr[i] - '0');
 		i++;
 	}
-	// if (result * sign > INT_MAX)
-	// 	return (-1);
-	// else if (result * sign < INT_MIN)
-	// 	return (0);
 	return (result * sign);
 }
 
