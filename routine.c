@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 16:32:30 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 18:30:53 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 19:08:02 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->no_philo == 1)
+	{
+		thinking_routine(philo);
+		pthread_mutex_lock(philo->l_fork);
+		lock_and_printf(philo, "has taken a fork");
+		ft_usleep(philo->time_to_die, philo);
+		pthread_mutex_unlock(philo->l_fork);
+		return (NULL);
+	}
 	if (is_even_id(philo->id) == TRUE) //give odd number advance
 	{
 		thinking_routine(philo);
