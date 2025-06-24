@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 18:19:10 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 18:58:25 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_philo
 	int			meal_no;
 	int			*dead_flag;
 	int			meal_eaten;
+	int			no_philo;
 	pthread_mutex_t *l_fork; //recurssive?
 	pthread_mutex_t *r_fork;
 	pthread_mutex_t	*write_lock;

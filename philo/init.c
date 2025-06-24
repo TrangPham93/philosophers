@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 16:31:20 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 18:58:44 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_philo(t_table *table)
 		philo->time_to_eat = table->time_to_eat;
 		philo->time_to_sleep = table->time_to_sleep;
 		philo->meal_no = 0;
+		philo->no_philo = table->no_philo;
 		philo->start_time = get_current_time();
 		philo->last_meal_time = get_current_time();
 		philo->dead_flag = &table->dead_flag;
