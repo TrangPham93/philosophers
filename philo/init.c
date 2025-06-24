@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 18:58:44 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 20:13:42 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	init_philo(t_table *table)
 		philo->time_to_die = table->time_to_die;
 		philo->time_to_eat = table->time_to_eat;
 		philo->time_to_sleep = table->time_to_sleep;
-		philo->meal_no = 0;
+		philo->meal_no = table->meal_no;
+		philo->meal_eaten = 0;
 		philo->no_philo = table->no_philo;
 		philo->start_time = get_current_time();
 		philo->last_meal_time = get_current_time();
@@ -53,6 +54,7 @@ void	init_table(t_table *table)
 	table->time_to_sleep = 0;
 	table->meal_no = 0;
 	table->dead_flag = FALSE;
+	table->all_philos_eat = FALSE;
 	memset(table->philo_table, 0, sizeof(table->philo_table));
 	memset(table->forks, 0, sizeof(table->forks));
 	pthread_mutex_init(&table->write_lock, NULL);

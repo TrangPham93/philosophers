@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:42:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 19:00:06 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 19:11:07 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,6 @@ int	start_dinner(t_table *table)
 	int i;
 	pthread_t	monitor;
 
-	// if (table->no_philo == 1) // handle 1 philo case, no eat, just wait to die
-	// {
-	// 	one_philo(table);
-	// 	return (TRUE);
-	// }
-
 	if (pthread_create(&monitor, NULL, &monitor_routine, table) != TRUE)
 	{
 		print_error("Failed to create monitor thread");
@@ -100,20 +94,4 @@ int	start_dinner(t_table *table)
 		}
 	}
 	return (TRUE);
-}
-
-void	one_philo(t_table *table)
-{
-	t_philo	*philo;
-
-	philo = &table->philo_table[0];
-	if (table->no_philo == 1)
-	{
-		thinking_routine(philo);
-		pthread_mutex_lock(philo->l_fork);
-		lock_and_printf(philo, "has taken a fork");
-		ft_usleep(philo->time_to_die, philo);
-		lock_and_print_death(philo);
-		pthread_mutex_unlock(philo->l_fork);
-	}
 }
