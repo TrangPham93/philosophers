@@ -6,13 +6,13 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:28:11 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/23 16:15:10 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 16:22:50 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	validate_input(char **input_arr, t_table **table)
+int	validate_input(char **input_arr, t_table *table)
 {
 	int	i;
 	int	count;
@@ -42,14 +42,14 @@ int	validate_input(char **input_arr, t_table **table)
 	return (TRUE);
 }
 
-int	check_input_value(long long *long_arr, t_table **table, int count)
+int	check_input_value(long long *long_arr, t_table *table, int count)
 {
-	if (long_arr[0] <= 0 || long_arr[0] > 200)
+	if (long_arr[0] <= 0 || long_arr[0] > PHILOMAX)
 	{
 		print_error("Invalid number of philosophers");
 		return (FALSE);
 	}
-	(*table)->size = long_arr[0];
+	table->no_philo = long_arr[0];
 	if (long_arr[1] <= 0 || long_arr[2] <= 0 || long_arr[3] <= 0)
 	{
 		print_error("Invalid input value");
@@ -60,11 +60,11 @@ int	check_input_value(long long *long_arr, t_table **table, int count)
 		print_error("Invalid input value");
 		return (FALSE);
 	}
-	(*table)->time_to_die = long_arr[1];
-	(*table)->time_to_eat = long_arr[2];
-	(*table)->time_to_sleep = long_arr[3];
+	table->time_to_die = long_arr[1];
+	table->time_to_eat = long_arr[2];
+	table->time_to_sleep = long_arr[3];
 	if (count == 5 && long_arr[4])
-		(*table)->meal_no = long_arr[4];
+		table->meal_no = long_arr[4];
 	return (TRUE);
 }
 
@@ -98,7 +98,7 @@ char	*join_input(char **av)
 
 	input_join = NULL;
 	i = 0;
-	while (av[++i])
+	while (av[++i]) //start from av[1]
 	{
 		// printf("Arr[%d] : %s\n", i, av[i]);
 		input_join = ft_strjoin(input_join, av[i]);
