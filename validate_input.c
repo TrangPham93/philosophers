@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:28:11 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 19:51:23 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 21:09:19 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	validate_input(char **input_arr, t_table *table)
 
 int	check_input_value(long long *long_arr, t_table *table, int count)
 {
+	// printf("%lld\n", long_arr);
+	// print_long_array(long_arr);
 	if (long_arr[0] <= 0 || long_arr[0] > PHILOMAX)
 	{
 		print_error("Invalid number of philosophers");
@@ -84,8 +86,10 @@ long long	*create_long_arr(char **input, int count)
 	}
 	while (input[i])
 	{
+		// printf("input %s -", input[i]); //db
 		num = ft_atoi(input[i]);
 		long_arr[i] = num;
+		// printf(" %lld \n", num); //db
 		i++;
 	}
 	return (long_arr);

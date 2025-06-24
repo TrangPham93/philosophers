@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:54:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/23 17:03:02 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 20:43:49 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_error(char *s)
 {
-	printf("Error: ");
+	printf("Invalid: ");
 	if (!s)
 		printf("Unknown\n");
 	printf("%s\n", s);

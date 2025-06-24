@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 20:13:21 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 20:57:02 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ void	destroy(t_table *table);
 /* to delete before submission */
 void	print_array(char **arr);
 void lock_and_print_msg(t_philo *philo, const char *format, int val);
+void	print_long_array(long long *arr);
 
 # endif
