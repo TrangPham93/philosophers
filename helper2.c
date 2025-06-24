@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:02:26 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 17:31:07 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 18:25:58 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,17 @@ long long get_current_time(void)
 
 void	lock_and_printf(t_philo *philo, char *msg)
 {
-	// if (get_dead_flag(philo) == TRUE)
-	// 	return ;
 	pthread_mutex_lock(philo->write_lock);
-	// check if philo is alive ? no need, still print dead msg
-	printf("%lld	%d %s \n", get_current_time() - philo->start_time, (philo)->id, msg);
+	if (get_dead_flag(philo) == FALSE)
+		printf("%lld	%d %s \n", get_current_time()
+			- philo->start_time, (philo)->id, msg);
+	pthread_mutex_unlock(philo->write_lock);
+}
+
+void	lock_and_print_death(t_philo *philo)
+{
+	pthread_mutex_lock(philo->write_lock);
+	printf("%lld	%d %s \n", get_current_time() - philo->start_time, (philo)->id, "died");
 	pthread_mutex_unlock(philo->write_lock);
 }
 

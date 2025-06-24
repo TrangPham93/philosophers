@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 17:21:33 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/24 18:19:10 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	thinking_routine(t_philo *philo);
 void	sleeping_routine(t_philo *philo);
 void	eating_routine(t_philo *philo);
 void	*monitor_routine(void *arg);
-int	get_dead_flag(t_philo *philo);
+int		get_dead_flag(t_philo *philo);
 
 // Suspend execution for millisecond intervals
 int		ft_usleep(long long milliseconds, t_philo *philo);
@@ -103,6 +103,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int 	is_even_id(int	id);
 void	print_error(char *s);
 void	lock_and_printf(t_philo *philo, char *msg);
+void	lock_and_print_death(t_philo *philo);
 
 /* Free memory */
 void	free_array_null(char ***array);
