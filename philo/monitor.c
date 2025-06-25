@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:31:02 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 11:55:18 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 12:18:01 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*monitor_routine(void *arg)
 	{
 		if (one_philo_die(table) == TRUE)
 			return (NULL);
-		if (all_philos_eat(table) == TRUE)
+		if (table->meal_no > 0 && all_philos_eat(table) == TRUE)
 		{
 			pthread_mutex_lock(&table->dead_lock);
 			table->dead_flag = TRUE;
