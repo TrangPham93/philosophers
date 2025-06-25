@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 16:32:30 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 21:48:34 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 22:18:12 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	*philo_routine(void *arg)
 	}
 	if (is_even_id(philo->id) == TRUE) //give odd number advance
 	{
+		thinking_routine(philo);
 		ft_usleep(10, philo); // 1 mlsecond works, but not longer
 	}
 	while (get_dead_flag(philo) == FALSE)
@@ -43,6 +44,7 @@ void	*philo_routine(void *arg)
 void	thinking_routine(t_philo *philo)
 {
 	lock_and_printf(philo, "is thinking");
+	ft_usleep((philo->table->time_to_die - philo->table->time_to_eat - philo->table->time_to_sleep)/2 , philo);
 }
 
 void	sleeping_routine(t_philo *philo)

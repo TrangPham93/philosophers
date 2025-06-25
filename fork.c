@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:40:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 21:43:14 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 22:16:51 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	lock_left_fork(t_philo *philo)
 void	lock_right_fork(t_philo *philo)
 {
 	pthread_mutex_lock(philo->r_fork);
-	lock_and_printf(philo, "has taken left fork");
+	lock_and_printf(philo, "has taken right fork");
 }
 
 void	unlock_fork(t_philo *philo)

@@ -6,13 +6,13 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:31:02 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 21:47:01 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 22:47:02 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	monitor_routine(t_table *table)
+int	monitor_routine(t_table *table)
 {
 	while (1)
 	{
@@ -27,7 +27,7 @@ void	monitor_routine(t_table *table)
 		}
 		usleep(500); //1 millisecond = 1000 microsecond
 	}
-	return ;
+	return (FALSE);
 }
 
 int	all_philos_eat(t_table *table)
