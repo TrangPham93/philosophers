@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:31:02 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 18:28:34 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 19:08:58 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	monitor_routine(t_table *table)
 			pthread_mutex_unlock(&table->dead_lock);
 			break ;
 		}
-		usleep(1000); //1 millisecond = 1000 microsecond
+		usleep(50); //1 millisecond = 1000 microsecond
 	}
 	return ;
 }

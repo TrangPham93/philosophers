@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 16:32:30 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 17:58:19 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 18:45:41 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	*philo_routine(void *arg)
 		pthread_mutex_unlock(philo->l_fork);
 		return (NULL);
 	}
-	if (is_even_id(philo->id) == TRUE) //give odd number advance
-	{
-		thinking_routine(philo);
-		ft_usleep(1, philo); // 1 mlsecond works, but not longer
-	}
+	// if (is_even_id(philo->id) == TRUE) //give odd number advance
+	// {
+	// 	thinking_routine(philo);
+	// 	ft_usleep(1, philo); // 1 mlsecond works, but not longer
+	// }
 	while (get_dead_flag(philo) == FALSE)
 	{
 		thinking_routine(philo);
@@ -84,13 +84,13 @@ int	eating_routine(t_philo *philo)
 	// ft_usleep(philo->table->time_to_eat, philo);
 	if (is_even_id(philo->id) == FALSE)
 	{
-		pthread_mutex_unlock(philo->r_fork);
 		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_unlock(philo->r_fork);
 	}
 	else
 	{
-		pthread_mutex_unlock(philo->l_fork);
 		pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
 	}
 	return (TRUE);
 }
