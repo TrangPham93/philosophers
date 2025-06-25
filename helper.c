@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:54:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 20:43:49 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 21:51:06 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	array_size(char **arr)
 	return (i);
 }
 
-int is_even_id(int	id)
+int	is_even_id(int id)
 {
 	if (id % 2 == 0)
 		return (TRUE);

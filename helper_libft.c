@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 12:51:19 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 21:11:34 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 21:50:44 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_atoi(const char *nptr)
 		if (result > (INT_MAX - (nptr[i] - '0')) / 10 && sign == 1)
 			return (-1);
 		else if (result > (INT_MAX - (nptr[i] - '0')) / 10 && sign == -1)
-			return (-1); //should consider return -1 also for meal_no < 0
+			return (0);
 		result = result * 10 + (nptr[i] - '0');
 		i++;
 	}
@@ -104,7 +104,7 @@ int	is_only_digit(char *s)
 			print_error("Non digit input");
 			return (FALSE);
 		}
-		i++;	
+		i++;
 	}
 	return (TRUE);
 }

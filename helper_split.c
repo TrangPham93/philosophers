@@ -6,74 +6,11 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 13:00:55 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/21 14:46:07 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 21:39:26 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	count;
-
-	if (!s)
-		return (0);
-	count = 0;
-	while (*s)
-	{
-		count++;
-		s++;
-	}
-	return (count);
-}
-
-char	*ft_strdup(const char *s)
-{
-	size_t	len;
-	char	*dup;
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s);
-	dup = malloc(len + 1);
-	if (!dup)
-		return (NULL);
-	while (i < len)
-	{
-		dup[i] = s[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	size_t	s_len;
-	char	*substr;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (s_len - start < len)
-		len = s_len - start;
-	substr = malloc(len + 1);
-	if (!substr)
-		return (NULL);
-	while (i < len && s[start + i] != '\0')
-	{
-		substr[i] = s[start + i];
-		i++;
-	}
-	substr[i] = '\0';
-	return (substr);
-}
 
 static size_t	ft_countword(const char *s, char c)
 {

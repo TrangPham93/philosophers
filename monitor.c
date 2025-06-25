@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:31:02 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 19:08:58 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 21:47:01 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	monitor_routine(t_table *table)
 {
-	// t_table *table;
-
-	// table = (t_table *)arg;
 	while (1)
 	{
 		if (one_philo_die(table) == TRUE)
@@ -28,7 +25,7 @@ void	monitor_routine(t_table *table)
 			pthread_mutex_unlock(&table->dead_lock);
 			break ;
 		}
-		usleep(50); //1 millisecond = 1000 microsecond
+		usleep(500); //1 millisecond = 1000 microsecond
 	}
 	return ;
 }
@@ -36,7 +33,7 @@ void	monitor_routine(t_table *table)
 int	all_philos_eat(t_table *table)
 {
 	int	i;
-	
+
 	i = -1;
 	while (++i < table->no_philo)
 	{
@@ -53,23 +50,24 @@ int	all_philos_eat(t_table *table)
 
 int	one_philo_die(t_table *table)
 {
-	int	i;
+	int			i;
+	long long	since_last_meal;
 
 	i = -1;
 	while (++i < table->no_philo)
 	{
 		pthread_mutex_lock(&table->meal_lock);
-		if (get_current_time() - table->philo_table[i].last_meal_time 
-			>= table->time_to_die)
+		since_last_meal = get_current_time()
+			- table->philo_table[i].last_meal_time;
+		pthread_mutex_unlock(&table->meal_lock);
+		if (since_last_meal >= table->time_to_die) // need = ?
 		{
 			pthread_mutex_lock(&table->dead_lock);
 			table->dead_flag = TRUE;
 			pthread_mutex_unlock(&table->dead_lock);
-			lock_and_print_death(&table->philo_table[i]);
-			pthread_mutex_unlock(&table->meal_lock);
+			lock_and_print_death(&table->philo_table[i]); //db
 			return (TRUE);
 		}
-		pthread_mutex_unlock(&table->meal_lock);
 	}
 	return (FALSE);
 }
