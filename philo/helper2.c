@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:02:26 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 19:12:57 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 21:45:41 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int	ft_usleep(long long milliseconds, t_philo *philo)
 {
 	long long	start;
-	
+
 	start = get_current_time();
 	if (start == FALSE)
 		return (FALSE);
-	while (get_current_time() - start <= milliseconds) // add equal condition
+	while (get_current_time() - start < milliseconds) // add equal condition
 	{
 		if (get_dead_flag(philo) == TRUE) // if die when sleep, exit
 			return (FALSE);
@@ -28,10 +28,10 @@ int	ft_usleep(long long milliseconds, t_philo *philo)
 	return (TRUE);
 }
 
-long long get_current_time(void)
+long long	get_current_time(void)
 {
 	struct timeval	time;
-	
+
 	if (gettimeofday(&time, NULL) != TRUE)
 	{
 		print_error("Gettimeofday failed");
@@ -52,7 +52,8 @@ void	lock_and_printf(t_philo *philo, char *msg)
 void	lock_and_print_death(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->write_lock);
-	printf("%lld %d %s\n", get_current_time() - philo->table->start_time, (philo)->id, "died");
+	printf("%lld %d %s\n", get_current_time() - philo->table->start_time,
+		(philo)->id, "died");
 	pthread_mutex_unlock(&philo->table->write_lock);
 }
 
@@ -73,9 +74,8 @@ void	destroy(t_table *table)
 	if (pthread_mutex_destroy(&table->write_lock) != TRUE
 		|| pthread_mutex_destroy(&table->dead_lock) != TRUE
 		|| pthread_mutex_destroy(&table->meal_lock) != TRUE)
-	
 	{
 		print_error("Mutex destroy failed");
 		return ;
-	}	
+	}
 }

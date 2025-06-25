@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 18:21:10 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 21:48:10 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,25 @@
 
 void	init_philo(t_table *table)
 {
-	int	i;
+	int		i;
 	t_philo	*philo;
-	
+
 	i = 0;
 	while (i < table->no_philo)
 	{
 		philo = &(table->philo_table[i]);
 		philo->id = i + 1;
-		// philo->time_to_die = table->time_to_die;
-		// philo->time_to_eat = table->time_to_eat;
-		// philo->time_to_sleep = table->time_to_sleep;
-		// philo->meal_no = table->meal_no;
-		// philo->no_philo = table->no_philo;
-		// philo->start_time = 
 		philo->meal_eaten = 0;
-		philo->last_meal_time = get_current_time(); //should it?
-		// philo->dead_flag = &table->dead_flag;
+		philo->last_meal_time = FALSE; //should it?
 		philo->l_fork = &table->forks[i];
-		if (philo->id == table->no_philo)
-			philo->r_fork = &table->forks[0];
-		else
-			philo->r_fork = &table->forks[i + 1];
-		// philo->write_lock = &table->write_lock;
-		// philo->dead_lock = &table->dead_lock;
-		// philo->meal_lock = &table->meal_lock;
+		philo->r_fork = &table->forks[(i + 1) % table->no_philo];
+		// if (philo->id == table->no_philo)
+		// 	philo->r_fork = &table->forks[0];
+		// else
+		// 	philo->r_fork = &table->forks[i + 1];
 		philo->table = table;
 		i++;
 	}
-	
 }
 
 int	init_table(t_table *table)
@@ -60,9 +50,9 @@ int	init_table(t_table *table)
 	table->all_philos_eat = FALSE;
 	memset(table->philo_table, 0, sizeof(table->philo_table));
 	memset(table->forks, 0, sizeof(table->forks));
-	if (pthread_mutex_init(&table->write_lock, NULL) != 0 
+	if (pthread_mutex_init(&table->write_lock, NULL) != 0
 		|| pthread_mutex_init(&table->dead_lock, NULL) != 0
-		||  pthread_mutex_init(&table->meal_lock, NULL) != 0)
+		|| pthread_mutex_init(&table->meal_lock, NULL) != 0)
 	{
 		print_error("Mutex initialization failed");
 		return (FALSE);
@@ -83,6 +73,6 @@ int	init_forks(t_table *table)
 			return (FALSE);
 		}
 		i++;
-	} // move to after have no_philo
+	}
 	return (TRUE);
 }

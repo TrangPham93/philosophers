@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:42:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 19:10:57 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 21:52:53 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int ac, char *av[])
 {
 	t_table	*table;
-	
+
 	if (ac == 1)
 	{
 		print_error("Please input arguments");
@@ -45,18 +45,20 @@ int	main(int ac, char *av[])
 
 int	start_dinner(t_table *table)
 {
-	int i;
+	int	i;
 
 	table->start_time = get_current_time();
+	for (i = 0; i < table->no_philo; i++)
+		table->philo_table[i].last_meal_time = table->start_time;
 	i = -1;
 	while (++i < table->no_philo)
 	{
 		if (pthread_create(&table->philo_table[i].thr, NULL,
-			&philo_routine, (void *)&table->philo_table[i]) != 0)
-			{
-				// destroy(table);
-				return (handle_thread_failed(table, i));
-			}
+				&philo_routine, (void *)&table->philo_table[i]) != 0)
+		{
+			// destroy(table);
+			return (handle_thread_failed(table, i));
+		}
 	}
 	monitor_routine(table);
 	i = -1;
