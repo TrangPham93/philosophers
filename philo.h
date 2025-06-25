@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 11:18:56 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 12:38:34 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ int			check_input_value(long long *long_arr, t_table *table, int count);
 long long	*create_long_arr(char **input, int count);
 char		**split_input(char **av);
 char		*join_input(char **av);
+int			check_invalid(t_table *table, int count);
 
 /* Initialize table */
-void	init_table(t_table *table);
+int		init_table(t_table *table);
 void	init_philo(t_table *table);
-void	init_forks(t_table *table);
+int		init_forks(t_table *table);
 int		start_dinner(t_table *table);
 
 /* Routine */
@@ -81,6 +82,7 @@ void	thinking_routine(t_philo *philo);
 void	sleeping_routine(t_philo *philo);
 void	eating_routine(t_philo *philo);
 int		get_dead_flag(t_philo *philo);
+int	handle_thread_failed(t_table *table, int i);
 
 /* Monitor */
 void	*monitor_routine(void *arg);

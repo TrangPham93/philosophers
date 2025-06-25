@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:28:11 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 11:54:46 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 12:10:34 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	validate_input(char **input_arr, t_table *table)
 		free_array_null(&input_arr);
 		return (FALSE);
 	}
-	
 	if (check_input_value(long_arr, table, count) == FALSE)
 		return (FALSE);
 	return (TRUE);
@@ -43,30 +42,32 @@ int	validate_input(char **input_arr, t_table *table)
 
 int	check_input_value(long long *long_arr, t_table *table, int count)
 {
-	if (long_arr[0] <= 0 || long_arr[0] > PHILOMAX)
-	{
-		print_error("Invalid number of philosophers");
-		return (FALSE);
-	}
 	table->no_philo = long_arr[0];
-	if (long_arr[1] <= 0 || long_arr[2] <= 0 || long_arr[3] <= 0)
-	{
-		print_error("Invalid input value");
-		return (FALSE);
-	}
-	if (count == 5 && long_arr[4] <= 0)
-	{
-		print_error("Invalid input value");
-		return (FALSE);
-	}
 	table->time_to_die = long_arr[1];
 	table->time_to_eat = long_arr[2];
 	table->time_to_sleep = long_arr[3];
 	if (count == 5)
 		table->meal_no = long_arr[4];
+	if (check_invalid(table, count) == FALSE)
+		return (FALSE);
 	return (TRUE);
 }
 
+int	check_invalid(t_table *table, int count)
+{
+	if (table->no_philo <= 0 || table->time_to_die <= 0 //no limit for philos number
+		|| table->time_to_eat <= 0 || table->time_to_sleep <= 0)
+	{
+		print_error("Invalid input");
+		return (FALSE);
+	}
+	if (count == 5 && table->meal_no <= 0)
+	{
+		print_error("Invalid input");
+		return (FALSE);
+	}
+	return (TRUE);
+}
 
 long long	*create_long_arr(char **input, int count)
 {

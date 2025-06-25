@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 11:21:01 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 12:32:25 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_philo(t_table *table)
 	}
 }
 
-void	init_table(t_table *table)
+int	init_table(t_table *table)
 {
 	int	i;
 
@@ -52,24 +52,34 @@ void	init_table(t_table *table)
 	table->time_to_die = 0;
 	table->time_to_eat = 0;
 	table->time_to_sleep = 0;
-	table->meal_no = 0;
+	table->meal_no = FALSE;
 	table->dead_flag = FALSE;
 	table->all_philos_eat = FALSE;
 	memset(table->philo_table, 0, sizeof(table->philo_table));
 	memset(table->forks, 0, sizeof(table->forks));
-	pthread_mutex_init(&table->write_lock, NULL);
-	pthread_mutex_init(&table->dead_lock, NULL);
-	pthread_mutex_init(&table->meal_lock, NULL);
+	if (pthread_mutex_init(&table->write_lock, NULL) != TRUE 
+		|| pthread_mutex_init(&table->dead_lock, NULL) != TRUE
+		||  pthread_mutex_init(&table->meal_lock, NULL) != TRUE)
+	{
+		print_error("Mutex initialization failed");
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
-void	init_forks(t_table *table)
+int	init_forks(t_table *table)
 {
 	int	i;
 
 	i = 0;
 	while (i < table->no_philo)
 	{
-		pthread_mutex_init(&table->forks[i], NULL);
+		if (pthread_mutex_init(&table->forks[i], NULL) != TRUE)
+		{
+			print_error("Mutex initialization failed");
+			return (FALSE);
+		}
 		i++;
 	} // move to after have no_philo
+	return (TRUE);
 }
