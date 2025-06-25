@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 15:05:44 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 11:54:56 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 16:22:53 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	print_long_array(long long *arr)
 // Modified lock_and_printf to accept format string and value:
 void lock_and_print_msg(t_philo *philo, const char *format, int val)
 {
-	pthread_mutex_lock(philo->write_lock);
+	pthread_mutex_lock(&philo->table->write_lock);
 	printf("philo [%d] %s [%d]\n", philo->id , format, val);
-	pthread_mutex_unlock(philo->write_lock);
+	pthread_mutex_unlock(&philo->table->write_lock);
 }

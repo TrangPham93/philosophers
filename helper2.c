@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:02:26 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 12:46:08 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 16:21:13 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_usleep(long long milliseconds, t_philo *philo)
 		return (FALSE);
 	while (get_current_time() - start < milliseconds)
 	{
-		if (get_dead_flag(philo) == FALSE)
+		if (get_dead_flag(philo) == TRUE) // if die when sleep, exit
 			return (FALSE);
 		usleep(100); // suspend execution for 500 microseconds
 	}
@@ -42,18 +42,18 @@ long long get_current_time(void)
 
 void	lock_and_printf(t_philo *philo, char *msg)
 {
-	pthread_mutex_lock(philo->write_lock);
+	pthread_mutex_lock(&philo->table->write_lock);
 	if (get_dead_flag(philo) == FALSE)
-		printf("%lld	%d %s \n", get_current_time()
-			- philo->start_time, (philo)->id, msg);
-	pthread_mutex_unlock(philo->write_lock);
+		printf("%lld %d %s\n", get_current_time()
+			- philo->table->start_time, (philo)->id, msg);
+	pthread_mutex_unlock(&philo->table->write_lock);
 }
 
 void	lock_and_print_death(t_philo *philo)
 {
-	pthread_mutex_lock(philo->write_lock);
-	printf("%lld	%d %s \n", get_current_time() - philo->start_time, (philo)->id, "died");
-	pthread_mutex_unlock(philo->write_lock);
+	pthread_mutex_lock(&philo->table->write_lock);
+	printf("%lld %d %s\n", get_current_time() - philo->table->start_time, (philo)->id, "died");
+	pthread_mutex_unlock(&philo->table->write_lock);
 }
 
 void	destroy(t_table *table)
