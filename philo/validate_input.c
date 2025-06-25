@@ -6,11 +6,23 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:28:11 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 12:10:34 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 15:45:55 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	process_input(char **av, t_table *table)
+{
+	char	**input_arr = NULL;
+	
+	input_arr = split_input(av);
+	if (!input_arr)
+		return (FALSE);
+	if (validate_input(input_arr, table) == FALSE)
+		return (FALSE);
+	return (TRUE);
+}
 
 int	validate_input(char **input_arr, t_table *table)
 {
@@ -55,7 +67,8 @@ int	check_input_value(long long *long_arr, t_table *table, int count)
 
 int	check_invalid(t_table *table, int count)
 {
-	if (table->no_philo <= 0 || table->time_to_die <= 0 //no limit for philos number
+	if (table->no_philo <= 0 || table->no_philo > PHILOMAX
+		|| table->time_to_die <= 0 //no limit for philos number
 		|| table->time_to_eat <= 0 || table->time_to_sleep <= 0)
 	{
 		print_error("Invalid input");

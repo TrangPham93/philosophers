@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 12:38:34 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 17:51:28 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,27 @@
 
 # define TRUE 0
 # define FALSE -1
-# define PHILOMAX 300
+# define PHILOMAX 500
 
 typedef struct s_philo
 {
 	pthread_t	thr;
 	int			id;
-	long long	start_time;
-	long long	time_to_die;
-	long long	time_to_eat;
-	long long	time_to_sleep;
+	// int			no_philo;
+	// long long	start_time;
+	// long long	time_to_die;
+	// long long	time_to_eat;
+	// long long	time_to_sleep;
+	// int			meal_no;
+	// int			*dead_flag;
 	long long	last_meal_time;
-	int			meal_no;
-	int			*dead_flag;
 	int			meal_eaten;
-	int			no_philo;
 	pthread_mutex_t *l_fork; //recurssive?
 	pthread_mutex_t *r_fork;
-	pthread_mutex_t	*write_lock;
-	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t *meal_lock;
+	// pthread_mutex_t	*write_lock;
+	// pthread_mutex_t	*dead_lock;
+	// pthread_mutex_t *meal_lock;
+	struct s_table	*table;
 }	t_philo;
 
 typedef	struct s_table
@@ -51,6 +52,7 @@ typedef	struct s_table
 	long long	time_to_die;
 	long long	time_to_eat;
 	long long	time_to_sleep;
+	long long	start_time;
 	int			meal_no;
 	int			dead_flag;
 	int			all_philos_eat;
@@ -80,7 +82,7 @@ int		start_dinner(t_table *table);
 void	*philo_routine(void *arg);
 void	thinking_routine(t_philo *philo);
 void	sleeping_routine(t_philo *philo);
-void	eating_routine(t_philo *philo);
+int		eating_routine(t_philo *philo);
 int		get_dead_flag(t_philo *philo);
 int	handle_thread_failed(t_table *table, int i);
 

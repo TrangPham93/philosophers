@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 12:32:25 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 16:22:03 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,27 @@ void	init_philo(t_table *table)
 	{
 		philo = &(table->philo_table[i]);
 		philo->id = i + 1;
-		philo->time_to_die = table->time_to_die;
-		philo->time_to_eat = table->time_to_eat;
-		philo->time_to_sleep = table->time_to_sleep;
-		philo->meal_no = table->meal_no;
+		// philo->time_to_die = table->time_to_die;
+		// philo->time_to_eat = table->time_to_eat;
+		// philo->time_to_sleep = table->time_to_sleep;
+		// philo->meal_no = table->meal_no;
+		// philo->no_philo = table->no_philo;
+		// philo->start_time = 
 		philo->meal_eaten = 0;
-		philo->no_philo = table->no_philo;
-		philo->start_time = get_current_time();
-		philo->last_meal_time = get_current_time();
-		philo->dead_flag = &table->dead_flag;
+		philo->last_meal_time = get_current_time(); //should it?
+		// philo->dead_flag = &table->dead_flag;
 		philo->l_fork = &table->forks[i];
 		if (philo->id == table->no_philo)
 			philo->r_fork = &table->forks[0];
 		else
 			philo->r_fork = &table->forks[i + 1];
-		philo->write_lock = &table->write_lock;
-		philo->dead_lock = &table->dead_lock;
-		philo->meal_lock = &table->meal_lock;
+		// philo->write_lock = &table->write_lock;
+		// philo->dead_lock = &table->dead_lock;
+		// philo->meal_lock = &table->meal_lock;
+		philo->table = table;
 		i++;
 	}
+	
 }
 
 int	init_table(t_table *table)
@@ -52,6 +54,7 @@ int	init_table(t_table *table)
 	table->time_to_die = 0;
 	table->time_to_eat = 0;
 	table->time_to_sleep = 0;
+	table->start_time = 0;
 	table->meal_no = FALSE;
 	table->dead_flag = FALSE;
 	table->all_philos_eat = FALSE;
