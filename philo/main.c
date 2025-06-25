@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:42:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 16:24:10 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 18:31:44 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,41 @@ int	main(int ac, char *av[])
 	return (EXIT_SUCCESS);
 }
 
+int	start_dinner(t_table *table)
+{
+	int i;
+
+	table->start_time = get_current_time();
+	i = -1;
+	while (++i < table->no_philo)
+	{
+		if (pthread_create(&table->philo_table[i].thr, NULL,
+			&philo_routine, (void *)&table->philo_table[i]) != 0)
+			{
+				// destroy(table);
+				return (handle_thread_failed(table, i));
+			}
+	}
+	monitor_routine(table);
+	i = -1;
+	while (++i < table->no_philo)
+	{
+		if (pthread_join(table->philo_table[i].thr, NULL) != 0) // wait for thr to finish
+		{
+			print_error("Failed to join thread");
+			destroy(table);
+			return (FALSE);
+		}
+	}
+	return (TRUE);
+}
+
 int	handle_thread_failed(t_table *table, int i)
 {
 	print_error("Create thread failed\n");
 	while (--i >= 0)
 	{
-		if (pthread_join(table->philo_table[i].thr, NULL) != TRUE) // wait for thr to finish
+		if (pthread_join(table->philo_table[i].thr, NULL) != 0) // wait for thr to finish
 		{
 			print_error("Failed to join thread");
 			destroy(table);
@@ -57,46 +86,4 @@ int	handle_thread_failed(t_table *table, int i)
 	}
 	destroy(table);
 	return (FALSE);
-}
-
-int	start_dinner(t_table *table)
-{
-	int i;
-	pthread_t	monitor;
-
-	i = -1;
-	table->start_time = get_current_time();
-	if (pthread_create(&monitor, NULL, &monitor_routine, table) != TRUE)
-	{
-		print_error("Failed to create monitor thread");
-		destroy(table); //recheck destroy func
-		return (FALSE);
-	}
-	while (++i < table->no_philo)
-	{
-		if (pthread_create(&table->philo_table[i].thr, NULL,
-			&philo_routine, (void *)&table->philo_table[i]) != TRUE)
-			{
-				// destroy(table);
-				return (handle_thread_failed(table, i));
-			}
-	}
-	
-	if (pthread_join(monitor, NULL) != TRUE)
-	{
-		print_error("Failed to join monitor thread");
-		destroy(table);
-		return (FALSE);
-	}
-	i = -1;
-	while (++i < table->no_philo)
-	{
-		if (pthread_join(table->philo_table[i].thr, NULL) != TRUE) // wait for thr to finish
-		{
-			print_error("Failed to join thread");
-			destroy(table);
-			return (FALSE);
-		}
-	}
-	return (TRUE);
 }

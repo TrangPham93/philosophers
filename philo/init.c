@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 16:22:03 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 18:21:10 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	init_table(t_table *table)
 	table->all_philos_eat = FALSE;
 	memset(table->philo_table, 0, sizeof(table->philo_table));
 	memset(table->forks, 0, sizeof(table->forks));
-	if (pthread_mutex_init(&table->write_lock, NULL) != TRUE 
-		|| pthread_mutex_init(&table->dead_lock, NULL) != TRUE
-		||  pthread_mutex_init(&table->meal_lock, NULL) != TRUE)
+	if (pthread_mutex_init(&table->write_lock, NULL) != 0 
+		|| pthread_mutex_init(&table->dead_lock, NULL) != 0
+		||  pthread_mutex_init(&table->meal_lock, NULL) != 0)
 	{
 		print_error("Mutex initialization failed");
 		return (FALSE);
@@ -77,7 +77,7 @@ int	init_forks(t_table *table)
 	i = 0;
 	while (i < table->no_philo)
 	{
-		if (pthread_mutex_init(&table->forks[i], NULL) != TRUE)
+		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
 		{
 			print_error("Mutex initialization failed");
 			return (FALSE);

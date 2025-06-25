@@ -6,17 +6,17 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:31:02 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 16:03:05 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 18:28:34 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*monitor_routine(void *arg)
+void	monitor_routine(t_table *table)
 {
-	t_table *table;
+	// t_table *table;
 
-	table = (t_table *)arg;
+	// table = (t_table *)arg;
 	while (1)
 	{
 		if (one_philo_die(table) == TRUE)
@@ -30,7 +30,7 @@ void	*monitor_routine(void *arg)
 		}
 		usleep(1000); //1 millisecond = 1000 microsecond
 	}
-	return (NULL);
+	return ;
 }
 
 int	all_philos_eat(t_table *table)
