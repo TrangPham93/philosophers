@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 16:32:30 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 20:33:16 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 11:55:06 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,10 @@ void	eating_routine(t_philo *philo)
 		lock_and_printf(philo, "has taken a fork");
 	}
 	lock_and_printf(philo, "is eating");
-	pthread_mutex_lock(&philo->meal_lock);
+	pthread_mutex_lock(philo->meal_lock);
 	philo->last_meal_time = get_current_time(); //before sleep or after
 	philo->meal_eaten++;
-	// lock_and_print_msg(philo, "is eating ", philo->meal_eaten);//db
-	pthread_mutex_unlock(&philo->meal_lock);
+	pthread_mutex_unlock(philo->meal_lock);
 	if (ft_usleep(philo->time_to_eat, philo) == FALSE)
 	{
 		pthread_mutex_unlock(philo->l_fork);

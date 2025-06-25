@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:02:26 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 21:14:33 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 11:55:55 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	destroy(t_table *table)
 	i = 0;
 	while (i < table->no_philo)
 	{
-		pthread_mutex_destroy(&table->philo_table[i].meal_lock);
 		pthread_mutex_destroy(&table->forks[i]);
 		i++;
 	}
 	pthread_mutex_destroy(&table->write_lock);
 	pthread_mutex_destroy(&table->dead_lock);
+	pthread_mutex_destroy(&table->meal_lock);
 }

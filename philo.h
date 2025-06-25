@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 20:57:02 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 11:18:56 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_philo
 	pthread_mutex_t *r_fork;
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*dead_lock;
-	pthread_mutex_t meal_lock; //for each philo
+	pthread_mutex_t *meal_lock;
 }	t_philo;
 
 typedef	struct s_table
@@ -54,11 +54,11 @@ typedef	struct s_table
 	int			meal_no;
 	int			dead_flag;
 	int			all_philos_eat;
-	t_philo		philo_table[PHILOMAX]; // need to add null and monitor?
+	t_philo		philo_table[PHILOMAX];
 	pthread_mutex_t	forks[PHILOMAX];
-	pthread_mutex_t	write_lock; //for the whole table
-	pthread_mutex_t	dead_lock; //for the whole table
-	// pthread_mutex_t	eat_lock;
+	pthread_mutex_t	write_lock;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t meal_lock;
 }	t_table;
 
 /* Process input */

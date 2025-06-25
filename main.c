@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:42:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 21:08:44 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 11:55:40 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	main(int ac, char *av[])
 		free(table);
 		return (EXIT_FAILURE);
 	}
-	// printf("input validated \n"); //db
 	init_philo(table); // recheck the return type of this func
 	init_forks(table);
 	if (start_dinner(table) == FALSE)
@@ -49,7 +48,6 @@ int	process_input(char **av, t_table *table)
 	input_arr = split_input(av);
 	if (!input_arr)
 		return (FALSE);
-	// print_array(input_arr);
 	if (validate_input(input_arr, table) == FALSE)
 		return (FALSE);
 	return (TRUE);

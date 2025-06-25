@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 20:13:42 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 11:21:01 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	init_philo(t_table *table)
 			philo->r_fork = &table->forks[0];
 		else
 			philo->r_fork = &table->forks[i + 1];
-		pthread_mutex_init(&philo->meal_lock, NULL);
 		philo->write_lock = &table->write_lock;
 		philo->dead_lock = &table->dead_lock;
+		philo->meal_lock = &table->meal_lock;
 		i++;
 	}
 }
@@ -59,6 +59,7 @@ void	init_table(t_table *table)
 	memset(table->forks, 0, sizeof(table->forks));
 	pthread_mutex_init(&table->write_lock, NULL);
 	pthread_mutex_init(&table->dead_lock, NULL);
+	pthread_mutex_init(&table->meal_lock, NULL);
 }
 
 void	init_forks(t_table *table)

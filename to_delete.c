@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 15:05:44 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/24 20:56:48 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 11:54:56 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,3 @@ void lock_and_print_msg(t_philo *philo, const char *format, int val)
 	printf("philo [%d] %s [%d]\n", philo->id , format, val);
 	pthread_mutex_unlock(philo->write_lock);
 }
-
-// Usage:
-
