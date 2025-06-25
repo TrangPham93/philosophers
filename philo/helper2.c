@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:02:26 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 16:21:13 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/25 19:12:57 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_usleep(long long milliseconds, t_philo *philo)
 	start = get_current_time();
 	if (start == FALSE)
 		return (FALSE);
-	while (get_current_time() - start < milliseconds)
+	while (get_current_time() - start <= milliseconds) // add equal condition
 	{
 		if (get_dead_flag(philo) == TRUE) // if die when sleep, exit
 			return (FALSE);
