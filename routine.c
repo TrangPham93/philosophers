@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 16:32:30 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 11:43:04 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 16:34:12 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	*philo_routine(void *arg)
 		thinking_routine(philo);
 		pthread_mutex_lock(philo->l_fork);
 		lock_and_printf(philo, "has taken a fork");
-		ft_usleep(philo->table->time_to_die, philo);
 		pthread_mutex_unlock(philo->l_fork);
+		ft_usleep(philo->table->time_to_die, philo);
 		return (NULL);
 	}
 	if (is_even_id(philo->id) == TRUE) //give odd number advance
@@ -56,27 +56,28 @@ void	sleeping_routine(t_philo *philo)
 
 int	eating_routine(t_philo *philo)
 {
-	if (is_even_id(philo->id) == FALSE) // odd pick l then r, release r then l
-	{
-		lock_left_fork(philo);
-		lock_right_fork(philo);
-	}
+	if (is_even_id(philo->id) == FALSE)
+		odd_lock_fork(philo);
 	else
-	{
-		lock_right_fork(philo);
-		lock_left_fork(philo);
-	}
+		even_lock_fork(philo);
+
+	// if (odd_lock_fork(philo) == FALSE)
+	// {
+	// 	return (FALSE);
+	// }
+		
 	pthread_mutex_lock(&philo->table->meal_lock);
-	philo->last_meal_time = get_current_time(); //before sleep or after
+	philo->last_meal_time = get_current_time();
 	philo->meal_eaten++;
 	pthread_mutex_unlock(&philo->table->meal_lock);
 	lock_and_printf(philo, "is eating");
-	if (ft_usleep(philo->table->time_to_eat, philo) == FALSE) // if die when sleeping, return
+	if (ft_usleep(philo->table->time_to_eat, philo) == FALSE)
 	{
-		unlock_fork(philo);
+		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_unlock(philo->r_fork);
 		return (FALSE);
 	}
-	unlock_fork(philo);
+	unlock_fork(philo); //db
 	return (TRUE);
 }
 
@@ -91,3 +92,4 @@ int	get_dead_flag(t_philo *philo)
 	pthread_mutex_unlock(&philo->table->dead_lock);
 	return (FALSE);
 }
+
