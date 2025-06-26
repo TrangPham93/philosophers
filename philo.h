@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 16:31:02 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 16:37:53 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ int			eating_routine(t_philo *philo);
 int			get_dead_flag(t_philo *philo);
 int	create_philos_thread(t_table *table);
 // void		handle_thread_failed(t_table *table, int i);
-void	odd_lock_fork(t_philo *philo);
-// int	odd_lock_fork(t_philo *philo);
-void	even_lock_fork(t_philo *philo);
-int	die_while_holding_fork(t_philo *philo);
+int	odd_lock_fork(t_philo *philo);
+// void	odd_lock_fork(t_philo *philo);
+// void	even_lock_fork(t_philo *philo);
 // void		lock_left_fork(t_philo *philo);
 // void		lock_right_fork(t_philo *philo);
 void		unlock_fork(t_philo *philo);
@@ -93,7 +92,6 @@ int			all_philos_eat(t_table *table);
 
 // Suspend execution for millisecond intervals
 int			ft_usleep(long long milliseconds, t_philo *philo);
-int	ft_usleep_eating(long long milliseconds, t_philo *philo);
 
 // Get current time (second and microsecond) in milliseconds.
 long long	get_current_time(void);
@@ -113,7 +111,6 @@ int			is_even_id(int id);
 void		print_error(char *s);
 void		lock_and_printf(t_philo *philo, char *msg);
 void		lock_and_print_death(t_philo *philo);
-void	lock_and_printf_when_eating(t_philo *philo, char *msg);
 
 /* Free memory */
 void		free_array_null(char ***array);

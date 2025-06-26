@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 16:32:30 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 16:34:12 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 16:38:35 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,13 @@ void	sleeping_routine(t_philo *philo)
 
 int	eating_routine(t_philo *philo)
 {
-	if (is_even_id(philo->id) == FALSE)
-		odd_lock_fork(philo);
-	else
-		even_lock_fork(philo);
+	// if (is_even_id(philo->id) == FALSE)
+	// 	odd_lock_fork(philo);
+	// else
+	// 	even_lock_fork(philo);
 
-	// if (odd_lock_fork(philo) == FALSE)
-	// {
-	// 	return (FALSE);
-	// }
+	if (odd_lock_fork(philo) == FALSE)
+		return (FALSE);
 		
 	pthread_mutex_lock(&philo->table->meal_lock);
 	philo->last_meal_time = get_current_time();
