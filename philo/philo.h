@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 17:56:09 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 18:17:17 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int			init_table(t_table *table);
 void		init_philo(t_table *table);
 int			init_forks(t_table *table);
 int			start_dinner(t_table *table);
+int			run(t_table *table);
 
 /* Routine */
 void		*philo_routine(void *arg);
@@ -111,6 +112,7 @@ void		lock_and_print_death(t_philo *philo);
 /* Free memory */
 void		free_array_null(char ***array);
 void		destroy(t_table *table);
+void		destroy_all_mutex(t_table *table);
 
 /* to delete before submission */
 void		print_array(char **arr);
