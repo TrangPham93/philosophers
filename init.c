@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 17:04:22 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 15:50:25 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 17:56:40 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_philo(t_table *table)
 		philo = &(table->philo_table[i]);
 		philo->id = i + 1;
 		philo->meal_eaten = 0;
-		philo->last_meal_time = FALSE; //should it?
+		philo->last_meal_time = FALSE;
 		philo->l_fork = &table->forks[i];
 		philo->r_fork = &table->forks[(i + 1) % table->no_philo];
 		philo->is_holding_left_f = FALSE;
@@ -35,9 +35,6 @@ void	init_philo(t_table *table)
 
 int	init_table(t_table *table)
 {
-	// int	i;
-
-	// i = 0;
 	table->no_philo = 0;
 	table->time_to_die = 0;
 	table->time_to_eat = 0;
@@ -75,9 +72,6 @@ int	init_forks(t_table *table)
 		{
 			while (--i >= 0)
 				pthread_mutex_destroy(&table->forks[i]);
-			// pthread_mutex_destroy(&table->write_lock);
-			// pthread_mutex_destroy(&table->dead_lock);
-			// pthread_mutex_destroy(&table->meal_lock);
 			return (FALSE);
 		}
 		i++;
