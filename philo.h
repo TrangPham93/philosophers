@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 22:46:06 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 11:39:27 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void		thinking_routine(t_philo *philo);
 void		sleeping_routine(t_philo *philo);
 int			eating_routine(t_philo *philo);
 int			get_dead_flag(t_philo *philo);
-void		handle_thread_failed(t_table *table, int i);
+int	create_philos_thread(t_table *table);
+// void		handle_thread_failed(t_table *table, int i);
 void		lock_left_fork(t_philo *philo);
 void		lock_right_fork(t_philo *philo);
 void		unlock_fork(t_philo *philo);
