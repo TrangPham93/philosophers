@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:31:02 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 18:00:09 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 19:07:07 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	one_philo_die(t_table *table)
 			pthread_mutex_lock(&table->dead_lock);
 			table->dead_flag = TRUE;
 			pthread_mutex_unlock(&table->dead_lock);
-			usleep(1000); //db
+			// usleep(100); //db
 			lock_and_print_death(&table->philo_table[i]);
 			return (TRUE);
 		}
