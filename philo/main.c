@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:42:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 11:45:40 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 16:24:43 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ int	main(int ac, char *av[])
 	if (init_forks(table) == FALSE)
 	{
 		print_error("Forks init failed");
+		pthread_mutex_destroy(&table->write_lock);
+		pthread_mutex_destroy(&table->dead_lock);
+		pthread_mutex_destroy(&table->meal_lock);
 		free(table);
 		return (EXIT_FAILURE);
 	}
@@ -63,17 +66,29 @@ int	start_dinner(t_table *table)
 	if (create_philos_thread(table) == FALSE)
 		return (FALSE);
 
+	// while (1)
+	// {
+	// 	if (monitor_routine(table) == FALSE)
+	// 		break;
+	// }
+		
 	if (monitor_routine(table) == FALSE)
+	{
+		// printf("inside monitor failure\n");
+		i = -1;
+		while (++i < table->no_philo)
+		{
+			pthread_join(table->philo_table[i].thr, NULL);
+			// printf("joined philo %d\n", i);
+		}
+		destroy(table);
 		return (FALSE);
+	}
+
 	i = -1;
 	while (++i < table->no_philo)
 	{
-		if (pthread_join(table->philo_table[i].thr, NULL) != 0) // wait for thr to finish
-		{
-			print_error("Failed to join thread");
-			destroy(table);
-			return (FALSE);
-		}
+		pthread_join(table->philo_table[i].thr, NULL);
 	}
 	destroy(table);
 	return (TRUE);
