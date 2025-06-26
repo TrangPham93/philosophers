@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:39:45 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 16:37:53 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 17:56:09 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			validate_input(char **input_arr, t_table *table);
 int			check_input_value(long long *long_arr, t_table *table, int count);
 long long	*create_long_arr(char **input, int count);
 char		**split_input(char **av);
-char		*join_input(char **av);
+int			join_input(char **av, char **input_join);
 int			check_invalid(t_table *table, int count);
 
 /* Initialize table */
@@ -76,17 +76,13 @@ void		thinking_routine(t_philo *philo);
 void		sleeping_routine(t_philo *philo);
 int			eating_routine(t_philo *philo);
 int			get_dead_flag(t_philo *philo);
-int	create_philos_thread(t_table *table);
-// void		handle_thread_failed(t_table *table, int i);
-int	odd_lock_fork(t_philo *philo);
-// void	odd_lock_fork(t_philo *philo);
-// void	even_lock_fork(t_philo *philo);
-// void		lock_left_fork(t_philo *philo);
-// void		lock_right_fork(t_philo *philo);
+int			create_philos_thread(t_table *table);
+int			odd_lock_fork(t_philo *philo);
+int			even_lock_fork(t_philo *philo);
 void		unlock_fork(t_philo *philo);
 
 /* Monitor */
-int		monitor_routine(t_table *table);
+int			monitor_routine(t_table *table);
 int			one_philo_die(t_table *table);
 int			all_philos_eat(t_table *table);
 
@@ -118,8 +114,7 @@ void		destroy(t_table *table);
 
 /* to delete before submission */
 void		print_array(char **arr);
-// void		lock_and_print_msg(t_philo *philo, const char *format, int val);
-void lock_and_print_msg(t_philo *philo, const char *format);
+void		lock_and_print_msg(t_philo *philo, const char *format);
 void		print_long_array(long long *arr);
 
 #endif

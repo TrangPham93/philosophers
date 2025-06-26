@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 15:42:27 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 16:24:43 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 17:57:24 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char *av[])
 	table = malloc(sizeof(t_table));
 	if (!table)
 		return (EXIT_FAILURE);
-	if (init_table(table) == FALSE) // recheck the return type of this func
+	if (init_table(table) == FALSE)
 	{
 		print_error("Mutex init failed");
 		free(table);
@@ -32,10 +32,14 @@ int	main(int ac, char *av[])
 	}
 	if (process_input(av, table) == FALSE)
 	{
+		print_error("Failed to process input");
+		pthread_mutex_destroy(&table->write_lock);
+		pthread_mutex_destroy(&table->dead_lock);
+		pthread_mutex_destroy(&table->meal_lock);
 		free(table);
 		return (EXIT_FAILURE);
 	}
-	init_philo(table); // recheck the return type of this func
+	init_philo(table);
 	if (init_forks(table) == FALSE)
 	{
 		print_error("Forks init failed");
@@ -62,29 +66,16 @@ int	start_dinner(t_table *table)
 	i = -1;
 	while (++i < table->no_philo)
 		table->philo_table[i].last_meal_time = table->start_time;
-	
 	if (create_philos_thread(table) == FALSE)
 		return (FALSE);
-
-	// while (1)
-	// {
-	// 	if (monitor_routine(table) == FALSE)
-	// 		break;
-	// }
-		
 	if (monitor_routine(table) == FALSE)
 	{
-		// printf("inside monitor failure\n");
 		i = -1;
 		while (++i < table->no_philo)
-		{
 			pthread_join(table->philo_table[i].thr, NULL);
-			// printf("joined philo %d\n", i);
-		}
 		destroy(table);
 		return (FALSE);
 	}
-
 	i = -1;
 	while (++i < table->no_philo)
 	{
@@ -97,7 +88,7 @@ int	start_dinner(t_table *table)
 int	create_philos_thread(t_table *table)
 {
 	int	i;
-	
+
 	i = -1;
 	while (++i < table->no_philo)
 	{
@@ -112,7 +103,7 @@ int	create_philos_thread(t_table *table)
 			pthread_mutex_unlock(&table->write_lock);
 			while (--i >= 0)
 			{
-				pthread_join(table->philo_table[i].thr, NULL); // wait for thr to finish
+				pthread_join(table->philo_table[i].thr, NULL);
 			}
 			destroy(table);
 			return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 17:02:26 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 16:34:01 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 17:59:26 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_usleep(long long milliseconds, t_philo *philo)
 		return (FALSE);
 	while (get_current_time() - start < milliseconds) // add equal condition
 	{
-		if (get_dead_flag(philo) == TRUE) // if die when sleep, exit
+		if (get_dead_flag(philo) == TRUE)
 		{
 			return (FALSE);
 		}
@@ -51,7 +51,6 @@ void	lock_and_printf(t_philo *philo, char *msg)
 	pthread_mutex_unlock(&philo->table->write_lock);
 }
 
-
 void	lock_and_print_death(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->write_lock);
@@ -75,4 +74,3 @@ void	destroy(t_table *table)
 	pthread_mutex_destroy(&table->meal_lock);
 	return ;
 }
-

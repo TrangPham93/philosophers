@@ -6,35 +6,38 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 21:41:09 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 21:49:20 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 17:57:30 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-char	*join_input(char **av)
+int	join_input(char **av, char **input_join)
 {
-	char	*input_join;
+	char	*temp;
 	int		i;
 
-	input_join = NULL;
 	i = 0;
 	while (av[++i])
 	{
-		input_join = ft_strjoin(input_join, av[i]);
-		if (!input_join)
+		temp = *input_join;
+		*input_join = ft_strjoin(*input_join, av[i]);
+		if (!*input_join)
 		{
-			free(input_join);
-			return (NULL);
+			free(temp);
+			return (FALSE);
 		}
-		input_join = ft_strjoin(input_join, " ");
-		if (!input_join)
+		free(temp);
+		temp = *input_join;
+		*input_join = ft_strjoin(*input_join, " ");
+		if (!*input_join)
 		{
-			free(input_join);
-			return (NULL);
+			free(temp);
+			return (FALSE);
 		}
+		free(temp);
 	}
-	return (input_join);
+	return (TRUE);
 }
 
 char	**split_input(char **av)
@@ -45,8 +48,7 @@ char	**split_input(char **av)
 
 	input_arr = NULL;
 	input_str = NULL;
-	input_str = join_input(av);
-	if (!input_str)
+	if (join_input(av, &input_str) == FALSE)
 		return (NULL);
 	input_arr = ft_split(input_str, ' ');
 	if (!input_arr)
@@ -62,5 +64,6 @@ char	**split_input(char **av)
 		free_array_null(&input_arr);
 		return (NULL);
 	}
+	free(input_str);
 	return (input_arr);
 }

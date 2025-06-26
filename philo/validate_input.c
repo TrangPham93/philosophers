@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 14:28:11 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/25 21:50:29 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 17:43:23 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ int	process_input(char **av, t_table *table)
 	if (!input_arr)
 		return (FALSE);
 	if (validate_input(input_arr, table) == FALSE)
+	{
+		free_array_null(&input_arr);
 		return (FALSE);
+	}
+	free_array_null(&input_arr);
 	return (TRUE);
 }
 
@@ -35,21 +39,22 @@ int	validate_input(char **input_arr, t_table *table)
 	while (input_arr[i])
 	{
 		if (is_only_digit(input_arr[i]) == FALSE)
-		{
-			free_array_null(&input_arr);
 			return (FALSE);
-		}
 		i++;
 	}
 	count = array_size(input_arr);
 	long_arr = create_long_arr(input_arr, count);
 	if (!long_arr)
 	{
-		free_array_null(&input_arr);
+		free(long_arr);
 		return (FALSE);
 	}
 	if (check_input_value(long_arr, table, count) == FALSE)
+	{
+		free(long_arr);
 		return (FALSE);
+	}
+	free(long_arr);
 	return (TRUE);
 }
 

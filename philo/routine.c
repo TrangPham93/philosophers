@@ -6,7 +6,7 @@
 /*   By: trpham <trpham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 16:32:30 by trpham            #+#    #+#             */
-/*   Updated: 2025/06/26 16:38:35 by trpham           ###   ########.fr       */
+/*   Updated: 2025/06/26 17:58:40 by trpham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*philo_routine(void *arg)
 		ft_usleep(philo->table->time_to_die, philo);
 		return (NULL);
 	}
-	if (is_even_id(philo->id) == TRUE) //give odd number advance
+	if (is_even_id(philo->id) == TRUE)
 	{
 		thinking_routine(philo);
 		ft_usleep(10, philo); // 1 mlsecond works, but not longer
@@ -45,7 +45,7 @@ void	thinking_routine(t_philo *philo)
 {
 	lock_and_printf(philo, "is thinking");
 	ft_usleep((philo->table->time_to_die - philo->table->time_to_eat
-		- philo->table->time_to_sleep)/2 , philo);
+			- philo->table->time_to_sleep) / 2, philo);
 }
 
 void	sleeping_routine(t_philo *philo)
@@ -56,14 +56,16 @@ void	sleeping_routine(t_philo *philo)
 
 int	eating_routine(t_philo *philo)
 {
-	// if (is_even_id(philo->id) == FALSE)
-	// 	odd_lock_fork(philo);
-	// else
-	// 	even_lock_fork(philo);
-
-	if (odd_lock_fork(philo) == FALSE)
-		return (FALSE);
-		
+	if (is_even_id(philo->id) == FALSE)
+	{
+		if (odd_lock_fork(philo) == FALSE)
+			return (FALSE);
+	}
+	else
+	{
+		if (even_lock_fork(philo) == FALSE)
+			return (FALSE);
+	}
 	pthread_mutex_lock(&philo->table->meal_lock);
 	philo->last_meal_time = get_current_time();
 	philo->meal_eaten++;
@@ -75,7 +77,7 @@ int	eating_routine(t_philo *philo)
 		pthread_mutex_unlock(philo->r_fork);
 		return (FALSE);
 	}
-	unlock_fork(philo); //db
+	unlock_fork(philo);
 	return (TRUE);
 }
 
@@ -90,4 +92,3 @@ int	get_dead_flag(t_philo *philo)
 	pthread_mutex_unlock(&philo->table->dead_lock);
 	return (FALSE);
 }
-
