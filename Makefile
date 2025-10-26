@@ -24,8 +24,7 @@ SRCS = main.c \
 		routine.c \
 		init.c \
 		monitor.c \
-		fork.c \
-		to_delete.c
+		fork.c 
 		
 OBJS = $(SRCS:%.c=%.o)
 
