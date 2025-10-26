@@ -34,7 +34,7 @@ make
 #### 3. Run the project
 
 ```bash
-./philo [number of philos] [time-to-die] [time-to-eat] [time-to-sleep] [number-of-meals-must-eat]
+./philo [number of philos] [time-to-die] [time-to-eat] [time-to-sleep] [number-of-meals-must-eat<optional>]
 ```
 
 #### 4. Examples
